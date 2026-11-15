@@ -206,23 +206,25 @@ const FichaInscripcion = {
   autoCuil(raiz) {
     const cuilEl = raiz.querySelector('[name="fi_cuil"]'), dniEl = raiz.querySelector('[name="fi_dni"]'), sexoEl = raiz.querySelector('[name="fi_sexo_dni"]');
     if (!cuilEl || !dniEl || !sexoEl || cuilEl.readOnly || cuilEl.disabled) return;
+    const AVISO_CALCULADO = 'Calculado con tu DNI y sexo. Verificalo y corregilo si no coincide con tu constancia de CUIL.';
     const campo = cuilEl.closest('.fi-campo');
     let aviso = campo && campo.querySelector('.fi-cuil-aviso');
     if (campo && !aviso) {
       aviso = document.createElement('div');
       aviso.className = 'fi-cuil-aviso';
       aviso.style.cssText = 'font-size:.78rem;color:#92400e;margin-top:.2rem;display:none';
-      aviso.textContent = 'Calculado con tu DNI y sexo. Verificalo y corregilo si no coincide con tu constancia de CUIL.';
       campo.appendChild(aviso);
     }
     const mostrar = si => { if (aviso) aviso.style.display = si ? '' : 'none'; };
     const calcular = () => {
       if (cuilEl.value.trim() && cuilEl.dataset.auto !== '1') return;   // lo escribió la persona
       const dni = dniEl.value.replace(/\D/g, '');
-      const calc = dni.length >= 6 && dni.length <= 9 && sexoEl.value ? this.calcularCuil(dni, sexoEl.value) : '';
+      // El cálculo solo vale para DNI de hasta 8 cifras: con más, se pide escribir el CUIL a mano.
+      const calc = dni.length >= 6 && dni.length <= 8 && sexoEl.value ? this.calcularCuil(dni, sexoEl.value) : '';
       cuilEl.value = calc;
       cuilEl.dataset.auto = calc ? '1' : '0';
-      mostrar(!!calc);
+      if (aviso) aviso.textContent = calc ? AVISO_CALCULADO : 'Con ese número de documento no se puede calcular el CUIL: escribilo como figura en tu constancia.';
+      mostrar(!!calc || dni.length > 8);
     };
     if (!cuilEl.dataset.autoListo) {
       cuilEl.dataset.autoListo = '1';
