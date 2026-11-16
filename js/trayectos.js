@@ -146,7 +146,10 @@ const Trayectos = {
         });
       }
 
-      this.listaTrayectos = trayectos;
+      // Web pública (sin sesión): no se muestran los trayectos que ya terminaron.
+      // Quienes tienen sesión (Dirección, Secretaría, docentes, estudiantes) los siguen viendo.
+      const esPublico = !(isAdmin || esPreceptor || esDocente || esEstudiante);
+      this.listaTrayectos = esPublico ? trayectos.filter(t => !this.yaTermino(t)) : trayectos;
       this.renderizarTrayectos();
       // Copia para abrir la lista sin señal (solo personal: docentes, preceptores, dirección)
       if (perfil && ['docente', 'preceptor', 'regente', 'admin', 'administrador'].includes(String(perfil.rol || '').toLowerCase())) {
@@ -216,6 +219,23 @@ const Trayectos = {
     </div>`;
   },
 
+  // Fecha de hoy (hora local) como AAAA-MM-DD, para comparar con las fechas de la base.
+  hoyISO() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  },
+
+  // Un trayecto "terminó" cuando ya pasó su última fecha de fin: la mayor entre el cierre del
+  // trayecto y el fin de cada uno de sus módulos. Sin ninguna fecha cargada nunca se considera terminado.
+  yaTermino(t) {
+    const hoy = this.hoyISO();
+    const fechas = [t.fecha_cierre, ...(Array.isArray(t.modulos) ? t.modulos.map(m => m.fecha_fin) : [])]
+      .map(v => String(v || '').slice(0, 10))
+      .filter(v => /^\d{4}-\d{2}-\d{2}$/.test(v));
+    if (!fechas.length) return false;
+    return fechas.sort().pop() < hoy;
+  },
+
   LIMITE_PUBLICO: 6,
 
   async renderizarTrayectos() {
@@ -241,6 +261,20 @@ const Trayectos = {
       const esVistaPublica = contenedor.id === 'lista-trayectos-cards' || contenedor.id === 'contenedor-trayectos';
 
       if (this.listaTrayectos.length === 0) {
+        const sinSesion = !(isAdmin || esPreceptor || esDocente || esEstudiante);
+        if (esVistaPublica && sinSesion) {
+          // Web pública sin trayectos vigentes: aviso de próxima publicación (desde octubre apunta al año siguiente).
+          const hoy = new Date();
+          const anioProx = hoy.getMonth() >= 9 ? hoy.getFullYear() + 1 : hoy.getFullYear();
+          contenedor.innerHTML = `
+            <div class="empty-state-card fade-in" style="text-align: center; padding: 3rem; background: rgba(30,41,59,0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); grid-column: 1 / -1;">
+              <div class="empty-state-icon" style="font-size: 2rem; margin-bottom: 0.5rem;">📢</div>
+              <h3 class="empty-state-title" style="color: #f8fafc; margin-bottom: 0.5rem;">¡Pronto estarán publicados los trayectos ${anioProx}!</h3>
+              <p class="empty-state-text" style="color: #94a3b8;">Seguinos en Instagram (@CFP401SADEGILES) para enterarte primero.</p>
+            </div>
+          `;
+          return;
+        }
         contenedor.innerHTML = `
           <div class="empty-state-card fade-in" style="text-align: center; padding: 3rem; background: rgba(30,41,59,0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); grid-column: 1 / -1;">
             <div class="empty-state-icon" style="font-size: 2rem; margin-bottom: 0.5rem;">📚</div>
