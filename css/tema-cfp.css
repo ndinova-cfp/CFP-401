@@ -1428,3 +1428,24 @@ details.seg-grupo > .seg-item { margin: .5rem .7rem; }
 @media (min-width: 900px) {
   #landing-screen { background-attachment: fixed; }
 }
+
+/* Versión vertical del fondo para celulares (img/fondo-oficios-celular.jpg).
+   Fija a la pantalla, como un fondo de pantalla del teléfono. */
+@media (max-width: 700px) {
+  #landing-screen {
+    background-image:
+      linear-gradient(rgba(250, 249, 246, 0.35), rgba(250, 249, 246, 0.35)),
+      url('../img/fondo-oficios-celular.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  /* iPhone/iPad no respeta "fixed": se apoya la imagen arriba, sin estirarla. */
+  @supports (-webkit-touch-callout: none) {
+    #landing-screen {
+      background-attachment: scroll;
+      background-size: 100% auto;
+      background-position: center top;
+    }
+  }
+}
