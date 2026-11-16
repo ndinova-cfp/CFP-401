@@ -9,7 +9,7 @@
    - Todo lo demás, y todo lo que no sea GET: va directo a la red.
 
    Al publicar un cambio: subir VERSION. Eso hace que los dispositivos avisen «Hay una versión nueva» (js/app.js). */
-const VERSION = '2';
+const VERSION = '3';
 const CACHE = `cfp401-app-v${VERSION}`;
 const NAVEGACION = ['./', 'index.html'];
 const CDN = ['cdn.jsdelivr.net', 'unpkg.com', 'cdnjs.cloudflare.com'];

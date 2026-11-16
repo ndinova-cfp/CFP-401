@@ -1410,3 +1410,21 @@ details.seg-grupo > .seg-item { margin: .5rem .7rem; }
 #app-screen .sidebar .sidebar-nav::-webkit-scrollbar { width: 6px; }
 #app-screen .sidebar .sidebar-nav::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .28); border-radius: 6px; }
 #app-screen .sidebar .sidebar-nav .nav-item-btn { flex-shrink: 0; }
+
+/* ==========================================================================
+   Fondo de oficios en la portada pública (solo #landing-screen).
+   Imagen: img/fondo-oficios.jpg. El velo claro asegura que el texto se lea.
+   Para quitarlo, borrar este bloque.
+   ========================================================================== */
+#landing-screen {
+  background-color: var(--bg-main);
+  background-image:
+    linear-gradient(rgba(250, 249, 246, 0.45), rgba(250, 249, 246, 0.45)),
+    url('../img/fondo-oficios.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+@media (min-width: 900px) {
+  #landing-screen { background-attachment: fixed; }
+}
