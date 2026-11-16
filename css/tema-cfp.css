@@ -1413,18 +1413,40 @@ details.seg-grupo > .seg-item { margin: .5rem .7rem; }
 
 /* ==========================================================================
    Fondo de oficios en la portada pública (solo #landing-screen).
-   Imagen: img/fondo-oficios.jpg. El velo claro asegura que el texto se lea.
+   Imagen: img/fondo-oficios-real.jpg (collage fotográfico vertical).
+   - Hasta 1279px (celulares y tablets): de fondo de pantalla, fijo, con velo claro.
+   - Desde 1280px (escritorio): franjas a los costados del contenido, a lo largo
+     de toda la página, sin pasar por detrás del texto.
    Para quitarlo, borrar este bloque.
    ========================================================================== */
 #landing-screen {
   background-color: var(--bg-main);
   background-image:
-    linear-gradient(rgba(250, 249, 246, 0.45), rgba(250, 249, 246, 0.45)),
-    url('../img/fondo-oficios.jpg');
-  background-size: cover;
-  background-position: center top;
+    linear-gradient(rgba(250, 249, 246, 0.62), rgba(250, 249, 246, 0.62)),
+    url('../img/fondo-oficios-real.jpg');
+  background-size: auto, cover;
+  background-position: 0 0, center;
   background-repeat: no-repeat;
+  background-attachment: scroll, fixed;
 }
-@media (min-width: 900px) {
-  #landing-screen { background-attachment: fixed; }
+/* iPhone/iPad no respeta "fixed": se apoya la imagen arriba, sin estirarla. */
+@supports (-webkit-touch-callout: none) {
+  #landing-screen {
+    background-attachment: scroll, scroll;
+    background-size: auto, 100% auto;
+    background-position: 0 0, center top;
+  }
+}
+@media (min-width: 1280px) {
+  #landing-screen {
+    background-image:
+      linear-gradient(rgba(250, 249, 246, 0.38), rgba(250, 249, 246, 0.38)),
+      url('../img/fondo-oficios-real.jpg'),
+      url('../img/fondo-oficios-real.jpg');
+    /* Ancho de cada franja = lo que sobra a cada lado del contenido (1200px). */
+    background-size: auto, calc((100vw - 1200px) / 2 - 12px) auto, calc((100vw - 1200px) / 2 - 12px) auto;
+    background-position: 0 0, left top, right top;
+    background-repeat: no-repeat, repeat-y, repeat-y;
+    background-attachment: scroll, scroll, scroll;
+  }
 }
