@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CFP N° 401 - Plataforma</title>
+  <meta name="description" content="Centro de Formación Profesional N.º 401 de San Andrés de Giles. Cursos de formación profesional gratuitos, con certificación oficial de la DGCyE. Preinscripción online.">
+  <link rel="canonical" href="https://cfp401sag.com.ar/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="CFP N° 401 San Andrés de Giles">
+  <meta property="og:title" content="CFP N° 401 · San Andrés de Giles">
+  <meta property="og:description" content="Formación profesional gratuita con certificación oficial. Conocé los cursos y preinscribite online.">
+  <meta property="og:url" content="https://cfp401sag.com.ar/">
+  <meta property="og:image" content="https://cfp401sag.com.ar/img/og-cfp401.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="CFP N° 401 San Andrés de Giles: formación gratuita y oficial">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Soporte App Móvil PWA -->
   <link rel="manifest" href="manifest.json">
@@ -41,7 +54,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/ficha-inscripcion.css?v=70064">
   <link rel="stylesheet" href="css/ayuda.css?v=70076">
-  <link rel="stylesheet" href="css/tema-cfp.css?v=70098">
+  <link rel="stylesheet" href="css/tema-cfp.css?v=70099">
   <style>
     /* Los avisos de SweetAlert (progreso, resúmenes, errores) tienen que verse por encima de los paneles de la plataforma */
     .swal2-container { z-index: 20000 !important; }
@@ -57,7 +70,7 @@
         <div class="header-top-brand">
           <img src="logo.png" alt="CFP N° 401 Logo" class="header-logo-xl">
           <div>
-            <h1 class="header-title-lg">CFP N° 401</h1>
+            <p class="header-title-lg">CFP N° 401</p>
             <span style="font-size: 0.85rem; color: var(--text-muted);">SAN ANDRÉS DE GILES, BUENOS AIRES</span>
           </div>
         </div>
@@ -74,9 +87,9 @@
       </div>
 
       <div class="header-action-right">
-        <a href="#" onclick="UI.showLoginScreen(); return false;" class="btn-header-login">
-          🔓 Ingresar / Registrarse
-        </a>
+        <button type="button" onclick="UI.showLoginScreen()" class="btn-header-login">
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg> Ingresar / Registrarse
+        </button>
       </div>
     </header>
 
@@ -109,21 +122,21 @@
       <!-- 3. ¿POR QUÉ ELEGIR EL CFP 401? -->
       <section id="por-que" class="value-props-grid">
         <div class="prop-card">
-          <div class="prop-icon">📜</div>
+          <div class="prop-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
           <div>
             <h3 class="prop-title">Títulos Oficiales</h3>
             <p class="prop-desc">Certificación avalada por DGCyE de Buenos Aires.</p>
           </div>
         </div>
         <div class="prop-card">
-          <div class="prop-icon">🎓</div>
+          <div class="prop-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
           <div>
             <h3 class="prop-title">100% Gratuito</h3>
             <p class="prop-desc">Educación técnica pública y accesible para todos.</p>
           </div>
         </div>
         <div class="prop-card">
-          <div class="prop-icon">🛠️</div>
+          <div class="prop-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
           <div>
             <h3 class="prop-title">Salida Laboral</h3>
             <p class="prop-desc">Capacitación práctica adaptada al mercado actual.</p>
@@ -157,7 +170,7 @@
           </div>
         </div>
         <a href="preinscripcion.html" class="btn-inscripcion-gold">
-          📝 Inscripción online
+          <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Inscripción online
         </a>
       </section>
 
@@ -168,21 +181,21 @@
         </div>
         <div class="news-grid">
           <div class="news-card">
-            <div class="news-icon">📰</div>
+            <div class="news-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div>
             <div>
               <h3 class="news-title">Inscripciones abiertas</h3>
               <p class="news-desc">Nueva etapa de inscripción para el próximo ciclo lectivo.</p>
             </div>
           </div>
           <div class="news-card">
-            <div class="news-icon">📢</div>
+            <div class="news-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
             <div>
               <h3 class="news-title">Inicio de clases</h3>
               <p class="news-desc">Consultá las comisiones y los horarios de cursada.</p>
             </div>
           </div>
           <div class="news-card">
-            <div class="news-icon">🎓</div>
+            <div class="news-icon"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
             <div>
               <h3 class="news-title">Entrega de certificados</h3>
               <p class="news-desc">Fechas de acto de egresados para trayectos finalizados.</p>
@@ -206,20 +219,20 @@
         <div class="footer-contact-group">
           <h4 class="footer-title">Contacto y Ubicación</h4>
           <a href="https://maps.google.com/?q=Alsina+975+San+Andres+de+Giles+Buenos+Aires" target="_blank" rel="noopener" class="contact-link-location">
-            📍 Alsina 975, San Andrés de Giles, Buenos Aires
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Alsina 975, San Andrés de Giles, Buenos Aires
           </a>
           <a href="mailto:cfp401sadegiles@abc.gob.ar" class="btn-contact btn-email">
-            ✉️ cfp401sadegiles@abc.gob.ar
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> cfp401sadegiles@abc.gob.ar
           </a>
           <a href="https://wa.me/5492325566990" target="_blank" rel="noopener" class="btn-contact btn-whatsapp">
-            🟢 Enviar WhatsApp
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg> Enviar WhatsApp
           </a>
         </div>
 
         <div class="footer-community-group">
           <h4 class="footer-title">Comunidad</h4>
           <a href="https://instagram.com/cfp401sadegiles" target="_blank" rel="noopener" class="btn-instagram">
-            📷 @CFP401SADEGILES en Instagram
+            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg> @CFP401SADEGILES en Instagram
           </a>
         </div>
       </div>
