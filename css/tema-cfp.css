@@ -1450,3 +1450,50 @@ details.seg-grupo > .seg-item { margin: .5rem .7rem; }
     background-attachment: scroll, scroll, scroll;
   }
 }
+
+/* ==========================================================================
+   MEJORAS DE DISEÑO DE LA WEB PÚBLICA (nov 2026)
+   Contraste (mínimo 4,5:1 en texto chico), menú que no se recorta,
+   botones con tamaño táctil y íconos propios en lugar de emojis.
+   ========================================================================== */
+:root { --cfp-teal-text: #00727F; }   /* turquesa oscuro: 5,7:1 sobre blanco */
+
+/* Íconos SVG (heredan el color del texto) */
+.icono { width: 1.15em; height: 1.15em; flex: none; fill: none; stroke: currentColor;
+         stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; }
+.prop-icon, .news-icon { color: var(--cfp-teal-text) !important; }
+.prop-icon .icono, .news-icon .icono { width: 1.6rem; height: 1.6rem; vertical-align: middle; }
+
+/* Encabezado */
+.header-title-lg { margin: 0; }   /* ya no es <h1>: el título principal es el de la portada */
+.btn-header-login { font: inherit; font-weight: 700; line-height: 1.2; cursor: pointer; }
+.main-nav { justify-content: safe center; }
+.main-header .nav-link { padding: .55rem .35rem; }
+
+/* Portada */
+.hero-banner .hero-badge { background: rgba(255, 255, 255, .16) !important; color: #fff !important; }
+.hero-banner .hero-subtitle { color: #EAF3FB !important; }
+
+/* Pasos, novedades y pie: contraste suficiente */
+.step-number { color: var(--cfp-teal-text) !important; }
+.nov-fecha span { font-size: .75rem; color: #FFCFA6; }
+.tipo-examen .nov-fecha:not(.sin) { background: var(--cfp-teal-text); }
+.tipo-examen .nov-fecha span { color: #fff; }
+.nov-tipo { font-size: .75rem; color: var(--cfp-teal-text); }
+.main-footer .btn-email { color: #FFD9B8; background: rgba(232, 114, 28, .18); border-color: rgba(255, 217, 184, .45); }
+.main-footer .contact-link-location { color: #CFE2F5; }
+
+/* Celulares: el menú se acomoda en filas (antes se cortaba y «Inicio» y «Cursos»
+   quedaban fuera de alcance), el encabezado deja de ser fijo para no tapar la pantalla */
+@media (max-width: 768px) {
+  .main-header { position: static; }
+  .main-nav { flex-wrap: wrap; justify-content: center; overflow: visible; white-space: normal; gap: .25rem .5rem; padding: .25rem 0; }
+  .main-header .nav-link { display: inline-flex; align-items: center; min-height: 44px; padding: .4rem .75rem; }
+  .btn-header-login { min-height: 48px; }
+}
+
+/* Pantallas táctiles: botones y enlaces de al menos 44 px de alto */
+@media (pointer: coarse) {
+  .btn, .btn-inscripcion-gold, .btn-contact, .btn-instagram, .contact-link-location { min-height: 44px; }
+  .contact-link-location { align-items: center; }
+}
