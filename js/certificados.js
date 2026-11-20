@@ -134,7 +134,7 @@ const CertFormato = {
 
 /* ---------- Dibujo de un certificado sobre una plantilla (frente + reverso) ---------- */
 const CertDibujo = {
-  // lienzo = { texto(pag, txt, x, y, size, bold), rect(pag, x, y, w, h), punto(pag, x, y), medir(txt, size, bold) }
+  // lienzo = { texto(pag, txt, x, y, size, bold), rect(pag, x, y, w, h), punto(pag, x, y), raya(pag, x, y, ancho), medir(txt, size, bold) }
   // Devuelve la lista de avisos (textos que no entraron a su tamaño reglamentario)
   certificado(lienzo, frente, reverso, d) {
     const G = CERT_GEO, avisos = [];
@@ -190,8 +190,13 @@ const CertDibujo = {
       this.punteado(lienzo, reverso, col.x0, col.x1, y2);
       const ren = [{ x0: col.x0, x1: col.x1, y: y1 }, { x0: col.x0, x1: col.x1, y: y2 }];
       const m = d.modulos[i];
-      // Los renglones vacíos quedan solo con su línea de puntos (sin doble punteado)
-      if (m) varios(reverso, ren, m, R.modSize, R.modMin, `Módulo ${i + 1}`, false);
+      // Renglones sin usar (módulo vacío o 2.º nivel libre): se testan con una raya «- - - -»
+      let usados = 0;
+      if (m) {
+        const r = varios(reverso, ren, m, R.modSize, R.modMin, `Módulo ${i + 1}`, false);
+        usados = r.lineas.filter(Boolean).length;
+      }
+      for (let n = usados; n < ren.length; n++) this.tachar(lienzo, reverso, ren[n].x0, ren[n].x1, ren[n].y + sobre);
     }
     campo(reverso, R.egreso, d.fechaEgreso, 'Fecha de egreso');
     campo(reverso, R.egresado, d.numEgresado, 'N.º de egresado');
@@ -203,6 +208,11 @@ const CertDibujo = {
   // Renglón punteado como el de la plantilla
   punteado(lienzo, pag, x0, x1, y) {
     for (let x = x0; x <= x1; x += CERT_GEO.pasoPunto) lienzo.punto(pag, x, y);
+  },
+  // Testar un renglón entero sin usar: raya de guiones a media altura del texto («- - - - -»)
+  tachar(lienzo, pag, x0, x1, y) {
+    const medio = y + 3.2, largo = 3.2, hueco = 1.8;
+    for (let x = x0 + 1; x + largo <= x1; x += largo + hueco) lienzo.raya(pag, x, medio, largo);
   },
   // "Testar" el espacio sobrante: línea de puntos a la altura del texto
   testar(lienzo, pag, x0, x1, y) {
@@ -220,7 +230,8 @@ async function crearLienzoPDF(doc) {
     medir: (t, s, b) => (b ? neg : reg).widthOfTextAtSize(String(t), s),
     texto: (pag, t, x, y, s, b) => pag.drawText(String(t), { x, y, size: s, font: b ? neg : reg, color: negro }),
     rect: (pag, x, y, w, h) => pag.drawRectangle({ x, y, width: w, height: h, color: blanco }),
-    punto: (pag, x, y) => pag.drawRectangle({ x, y, width: 0.75, height: 0.75, color: negro })
+    punto: (pag, x, y) => pag.drawRectangle({ x, y, width: 0.75, height: 0.75, color: negro }),
+    raya: (pag, x, y, w) => pag.drawRectangle({ x, y, width: w, height: 0.7, color: negro })
   };
 }
 
