@@ -231,7 +231,7 @@ async function crearLienzoPDF(doc) {
     texto: (pag, t, x, y, s, b) => pag.drawText(String(t), { x, y, size: s, font: b ? neg : reg, color: negro }),
     rect: (pag, x, y, w, h) => pag.drawRectangle({ x, y, width: w, height: h, color: blanco }),
     punto: (pag, x, y) => pag.drawRectangle({ x, y, width: 0.75, height: 0.75, color: negro }),
-    raya: (pag, x, y, w) => pag.drawRectangle({ x, y, width: w, height: 0.7, color: negro })
+    raya: (pag, x, y, w) => pag.drawRectangle({ x, y, width: w, height: 0.5, color: negro })
   };
 }
 
